@@ -1,0 +1,76 @@
+/* src/styles/FormPage.scss */
+
+.container {
+    max-width: 700px;
+  }
+  
+  .card {
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem !important;
+  
+    h2 {
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 2rem;
+    }
+  
+    .form-label {
+      display: block;
+      font-weight: 600;
+      color: #444;
+      text-transform: capitalize;
+      margin-bottom: 0.6rem; /* space below label */
+      font-size: 1.1rem;
+    }
+  
+    .form-control,
+    .form-select,
+    textarea.form-control {
+      border-radius: 8px;
+      border: 1.5px solid #ddd;
+      font-size: 1.2rem;         /* Increased font size */
+      line-height: 1.5;          /* Slightly bigger line height */
+      padding: 0.8rem 1rem;      /* More padding for comfort */
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  
+      &:focus {
+        border-color: #0d6efd; /* Bootstrap primary */
+        box-shadow: 0 0 8px rgba(13, 110, 253, 0.3);
+        outline: none;
+      }
+    }
+  
+    .mb-3 {
+      margin-bottom: 1.8rem !important; /* more vertical space between groups */
+    }
+  
+    .mb-4 {
+      margin-bottom: 2rem !important;
+    }
+  
+    .btn-primary {
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 0.6rem 1.5rem;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  
+      &:hover {
+        background-color: #0b5ed7;
+        box-shadow: 0 4px 12px rgba(11, 94, 215, 0.5);
+      }
+    }
+  
+    .text-center {
+      margin-top: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .card {
+      padding: 1.5rem !important;
+    }
+  }
+  
