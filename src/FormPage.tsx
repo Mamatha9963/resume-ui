@@ -44,7 +44,7 @@ const FormPage = () => {
     e.preventDefault()
     try {
       const response = await axios.post(
-        'https://localhost:44352/api/resume/generate',
+        `${import.meta.env.VITE_API_BASE_URL}/api/generate`,
         formData
       )
       const { resume } = response.data
