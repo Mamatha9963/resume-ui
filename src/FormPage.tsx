@@ -50,6 +50,7 @@ const FormPage = () => {
       const { resume } = response.data
       navigate('/result', { state: { resume } })
     } catch (err) {
+      
       alert('Error generating resume')
       console.error(err)
     }
