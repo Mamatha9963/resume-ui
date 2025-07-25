@@ -1,0 +1,145 @@
+/* result.scss */
+
+.resume-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  line-height: 1.5;
+}
+
+.resume-name {
+  font-size: 32px;
+  margin-bottom: 4px;
+  color: #0b3d91;
+}
+
+.resume-contact {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.resume-section {
+  margin-bottom: 24px;
+}
+
+.resume-section-title {
+  border-bottom: 2px solid #0b3d91;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+  font-size: 22px;
+  color: #0b3d91;
+}
+
+.resume-summary,
+.resume-education {
+  font-size: 16px;
+  white-space: pre-wrap;
+}
+
+.resume-skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.resume-skill-item {
+  background-color: #e1ecf4;
+  color: #0366d6;
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 14px;
+  margin: 4px 8px 4px 0;
+}
+
+.resume-experience-item {
+  margin-bottom: 20px;
+}
+
+.resume-experience-title {
+  margin: 0 0 4px;
+  font-size: 18px;
+  color: #0b3d91;
+}
+
+.resume-experience-sub {
+  font-style: italic;
+  font-size: 14px;
+  margin: 0 0 8px;
+  color: #555;
+}
+
+.resume-experience-bullets {
+  padding-left: 20px;
+  margin-top: 8px;
+}
+
+.resume-experience-bullets li,
+.resume-achievement-item {
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+.resume-buttons {
+  margin-top: 30px;
+}
+
+.button-primary {
+  background-color: #0b3d91;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-right: 10px;
+}
+
+.button-secondary {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.copy-success {
+  margin-left: 15px;
+  color: green;
+  font-weight: 600;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+@media (max-width: 600px) {
+  .resume-wrapper {
+    padding: 15px;
+  }
+
+  .resume-name {
+    font-size: 1.5rem;
+  }
+
+  .resume-contact {
+    font-size: 0.95rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .button-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

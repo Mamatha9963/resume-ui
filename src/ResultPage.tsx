@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import "./styles/ResultPage.scss";
 
 interface ExperienceItem {
   jobTitle: string;
@@ -38,29 +39,8 @@ const ResultPage = () => {
     }
   }, [state?.resume]);
 
-  if (!state?.resume) {
-    return (
-      <div style={{ padding: 20 }}>
-        <h3>No resume data found.</h3>
-        <button
-          onClick={() => navigate("/")}
-          style={buttonStyleSecondary}
-        >
-          Go Back
-        </button>
-      </div>
-    );
-  }
-
-  if (!resume) {
-    return (
-      <div style={{ padding: 20 }}>
-        <h3>Loading resume...</h3>
-      </div>
-    );
-  }
-
   const handleCopy = () => {
+    if (!resume) return;
     const textToCopy = `
 ${resume.name}
 Email: ${resume.email} | Phone: ${resume.phone}
@@ -73,12 +53,12 @@ ${resume.skills.join(", ")}
 
 Experience
 ${resume.experience
-  .map(
-    (exp) =>
-      `${exp.jobTitle} at ${exp.company}, ${exp.location} (${exp.duration})
+      .map(
+        (exp) =>
+          `${exp.jobTitle} at ${exp.company}, ${exp.location} (${exp.duration})
 - ${exp.bullets.join("\n- ")}`
-  )
-  .join("\n\n")}
+      )
+      .join("\n\n")}
 
 Education
 ${resume.education}
@@ -92,168 +72,94 @@ ${resume.achievements.join("\n")}
     setTimeout(() => setCopySuccess(""), 2000);
   };
 
+  if (!state?.resume) {
+    return (
+      <div className="resume-container">
+        <h3>No resume data found.</h3>
+        <button className="resume-button resume-secondary" onClick={() => navigate("/")}>
+          Go Back
+        </button>
+      </div>
+    );
+  }
+
+  if (!resume) {
+    return (
+      <div className="resume-container">
+        <h3>Loading resume...</h3>
+      </div>
+    );
+  }
+
   return (
-    <div
-      style={{
-        maxWidth: 800,
-        margin: "auto",
-        padding: 20,
-        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-        color: "#222",
-        lineHeight: 1.5,
-      }}
-    >
-      <h1 style={{ fontSize: 32, marginBottom: 4, color: "#0B3D91" }}>
-        {resume.name}
-      </h1>
-      <p style={{ fontSize: 16, marginBottom: 20, color: "#555" }}>
-        📧 {resume.email} | 📞 {resume.phone}
+    <div className="resume-container">
+      <h1 className="resume-name">{resume.name}</h1>
+      <p className="resume-contact">
+        📧 {resume.email} | 📞 {resume.phone}
       </p>
 
-      <Section title="Summary">
-        <p style={{ fontSize: 16, whiteSpace: "pre-wrap" }}>{resume.summary}</p>
-      </Section>
+      <section className="resume-section">
+        <h2 className="resume-section-title">Summary</h2>
+        <p>{resume.summary}</p>
+      </section>
 
-      <Section title="Skills">
-        <ul style={skillListStyle}>
+      <section className="resume-section">
+        <h2 className="resume-section-title">Skills</h2>
+        <ul className="resume-skills">
           {resume.skills.map((skill, i) => (
-            <li key={i} style={skillItemStyle}>
+            <li key={i} className="resume-skill-item">
               {skill}
             </li>
           ))}
         </ul>
-      </Section>
+      </section>
 
-      <Section title="Experience">
+      <section className="resume-section">
+        <h2 className="resume-section-title">Experience</h2>
         {resume.experience.map((exp, i) => (
-          <div key={i} style={{ marginBottom: 20 }}>
-            <h3 style={experienceTitleStyle}>{exp.jobTitle}</h3>
-            <p style={experienceSubStyle}>
+          <div key={i} className="resume-experience-item">
+            <h3 className="resume-experience-title">{exp.jobTitle}</h3>
+            <p className="resume-experience-subtitle">
               {exp.company}, {exp.location} | {exp.duration}
             </p>
-            <ul style={{ paddingLeft: 20, marginTop: 8 }}>
+            <ul className="resume-bullet-list">
               {exp.bullets.map((bullet, idx) => (
-                <li key={idx} style={{ marginBottom: 6, fontSize: 15 }}>
+                <li key={idx} className="resume-bullet-item">
                   {bullet}
                 </li>
               ))}
             </ul>
           </div>
         ))}
-      </Section>
+      </section>
 
-      <Section title="Education">
-        <p style={{ fontSize: 16 }}>{resume.education}</p>
-      </Section>
+      <section className="resume-section">
+        <h2 className="resume-section-title">Education</h2>
+        <p>{resume.education}</p>
+      </section>
 
-      <Section title="Achievements">
-        <ul style={{ paddingLeft: 20, margin: 0 }}>
+      <section className="resume-section">
+        <h2 className="resume-section-title">Achievements</h2>
+        <ul className="resume-achievements">
           {resume.achievements.map((ach, idx) => (
-            <li key={idx} style={{ marginBottom: 6, fontSize: 15 }}>
+            <li key={idx} className="resume-achievement-item">
               {ach}
             </li>
           ))}
         </ul>
-      </Section>
+      </section>
 
-      <div style={{ marginTop: 30 }}>
-        <button onClick={handleCopy} style={buttonStylePrimary}>
+      <div className="resume-buttons">
+        <button className="resume-button resume-primary" onClick={handleCopy}>
           Copy to Clipboard
-        </button>{" "}
-        <button
-          onClick={() => navigate("/")}
-          style={buttonStyleSecondary}
-        >
+        </button>
+        <button className="resume-button resume-secondary" onClick={() => navigate("/")}>
           Generate Another
         </button>
-        {copySuccess && (
-          <span
-            style={{
-              marginLeft: 15,
-              color: "green",
-              fontWeight: "600",
-              fontSize: 14,
-              verticalAlign: "middle",
-            }}
-          >
-            {copySuccess}
-          </span>
-        )}
+        {copySuccess && <span className="resume-copied">{copySuccess}</span>}
       </div>
     </div>
   );
-};
-
-const Section: React.FC<{ title: string; children: React.ReactNode }> = ({
-  title,
-  children,
-}) => (
-  <section style={{ marginBottom: 24 }}>
-    <h2
-      style={{
-        borderBottom: "2px solid #0B3D91",
-        paddingBottom: 6,
-        marginBottom: 12,
-        fontSize: 22,
-        color: "#0B3D91",
-      }}
-    >
-      {title}
-    </h2>
-    {children}
-  </section>
-);
-
-const skillListStyle: React.CSSProperties = {
-  display: "flex",
-  flexWrap: "wrap",
-  listStyle: "none",
-  paddingLeft: 0,
-  margin: 0,
-};
-
-const skillItemStyle: React.CSSProperties = {
-  backgroundColor: "#e1ecf4",
-  color: "#0366d6",
-  padding: "6px 12px",
-  borderRadius: 15,
-  fontSize: 14,
-  margin: "4px 8px 4px 0",
-};
-
-const experienceTitleStyle: React.CSSProperties = {
-  margin: "0 0 4px",
-  fontSize: 18,
-  color: "#0B3D91",
-};
-
-const experienceSubStyle: React.CSSProperties = {
-  fontStyle: "italic",
-  fontSize: 14,
-  margin: "0 0 8px",
-  color: "#555",
-};
-
-const buttonStylePrimary: React.CSSProperties = {
-  backgroundColor: "#0B3D91",
-  color: "white",
-  border: "none",
-  padding: "10px 18px",
-  borderRadius: 5,
-  fontSize: 16,
-  cursor: "pointer",
-  transition: "background-color 0.3s",
-};
-
-const buttonStyleSecondary: React.CSSProperties = {
-  backgroundColor: "#6c757d",
-  color: "white",
-  border: "none",
-  padding: "10px 18px",
-  borderRadius: 5,
-  fontSize: 16,
-  cursor: "pointer",
-  transition: "background-color 0.3s",
 };
 
 export default ResultPage;
