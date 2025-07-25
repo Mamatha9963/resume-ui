@@ -45,7 +45,7 @@ const FormPage = () => {
     try {
       console.log("API Base URL:",  import.meta.env);
       const response = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/api/generate`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/resume/generate`,
         formData
       )
       const { resume } = response.data
