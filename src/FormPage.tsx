@@ -48,6 +48,7 @@ const FormPage = () => {
         `${import.meta.env.VITE_API_BASE_URL}/api/resume/generate`,
         formData
       )
+      console.log("data",response);
       const { resume } = response.data
       navigate('/result', { state: { resume } })
     } catch (err) {
