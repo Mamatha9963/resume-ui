@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 import "./styles/ResultPage.scss";
 
 interface ExperienceItem {
@@ -38,6 +40,32 @@ const ResultPage = () => {
       }
     }
   }, [state?.resume]);
+
+const handleDownloadPDF = async () => {
+  const input = document.querySelector(".resume-container") as HTMLElement;
+  const buttons = input.querySelector(".resume-buttons") as HTMLElement;
+  if (!input) return;
+
+  // Hide buttons
+  if (buttons) buttons.style.display = "none";
+
+  // Wait for the DOM to update
+  await new Promise((resolve) => setTimeout(resolve, 100));
+
+  const canvas = await html2canvas(input, { scale: 2 });
+  const imgData = canvas.toDataURL("image/png");
+  const pdf = new jsPDF({
+    orientation: "portrait",
+    unit: "px",
+    format: [canvas.width, canvas.height],
+  });
+  pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
+
+  // Show buttons again
+  if (buttons) buttons.style.display = "";
+
+  pdf.save(`${resume?.name.replace(/\s+/g, "_")}_Resume.pdf`);
+};
 
   const handleCopy = () => {
     if (!resume) return;
@@ -152,7 +180,10 @@ ${resume.achievements.join("\n")}
       <div className="resume-buttons">
         <button className="resume-button resume-primary" onClick={handleCopy}>
           Copy to Clipboard
-        </button>
+        </button>&nbsp;&nbsp;
+        <button className="resume-button resume-primary" onClick={handleDownloadPDF}>
+          Download as PDF
+        </button>&nbsp;&nbsp;
         <button className="resume-button resume-secondary" onClick={() => navigate("/")}>
           Generate Another
         </button>
